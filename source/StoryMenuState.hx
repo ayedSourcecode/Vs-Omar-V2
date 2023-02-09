@@ -51,6 +51,10 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
+		if(FlxG.sound.music == null) {
+		FlxG.sound.playMusic(Paths.music('StoryMenu'), 0.5);
+		}
+		
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
@@ -263,9 +267,11 @@ class StoryMenuState extends MusicBeatState
 
 		if (controls.BACK && !movedBack && !selectedWeek)
 		{
+			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
 			MusicBeatState.switchState(new MainMenuState());
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 		}
 
 		super.update(elapsed);
